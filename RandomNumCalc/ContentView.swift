@@ -91,8 +91,28 @@ struct ContentView: View {
         return
     }
     func randomCalc() {
+        if selection == "Multiply" {
         num1 = Int.random(in: 1...20)
         num2 = Int.random(in: 1...20)
+        }
+        if selection == "Addition" {
+            num1 = Int.random(in: 1...20)
+            num2 = Int.random(in: 1...20)
+        }
+        if selection == "Subtraction" {
+            num1 = Int.random(in: 1...20)
+            num2 = Int.random(in: 1...20)
+            if num1 < num2 {
+                randomCalc()
+            }
+        }
+        if selection == "Division" {
+            num1 = Int.random(in: 1...20)
+            num2 = Int.random(in: 1...20)
+            if num1 < num2 {
+                randomCalc()
+            }
+        }
     }
     func clear() {
         X = ""
