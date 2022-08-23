@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var text1 = ""
     @State private var X = ""
     @State var buttonTapped = 0
+    @State var selection = ""
     var body: some View {
         VStack {
             Text("Number Flash Cards")
@@ -22,13 +23,37 @@ struct ContentView: View {
                 .fontWeight(.bold)
             Text("Tap the numbers to see answer")
                 .font(.footnote)
+            Picker("Function", selection: $selection) {
+                Text("Multiply").tag("Multiply")
+                Text("Addition").tag("Addition")
+                Text("Subtraction").tag("Subtraction")
+                Text("Division").tag("Division")
+            }
+            .onChange(of: selection, perform: { newValue in
+                randomCalc()
+                reset()
+            })
+            .pickerStyle(.wheel)
             Spacer()
             Text( "\(text)" + " \(X)" + " \(text1)").cornerRadius(10)
                 .frame(width: 120, height: 120, alignment: .center)
                 .onTapGesture {
-                    text = num1 * num2
-                    X = ""
-                    text1 = ""
+                    if selection == "Multiply" {
+                        text = num1 * num2
+                        clear()
+                    }
+                    if selection == "Addition" {
+                        text = num1 + num2
+                        clear()
+                    }
+                    if selection == "Subtraction" {
+                        text = num1 - num2
+                        clear()
+                    }
+                    if selection == "Division" {
+                        text = num1 / num2
+                        clear()
+                    }
                 }
                 .background(.green)
             Button("New") {
@@ -36,20 +61,42 @@ struct ContentView: View {
                 reset()
             }
             Spacer()
-            .onAppear {
-                randomCalc()
-                reset()
-            }
+                .onAppear {
+                    randomCalc()
+                    reset()
+                }
         }
     }
     func reset() {
-        text = num1
-        X = "X"
-        text1 = String(num2)
+        if selection == "Multiply" {
+            text = num1
+            X = "X"
+            text1 = String(num2)
+        }
+        if selection == "Addition" {
+            text = num1
+            X = "+"
+            text1 = String(num2)
+        }
+        if selection == "Subtraction" {
+            text = num1
+            X = "-"
+            text1 = String(num2)
+        }
+        if selection == "Division" {
+            text = num1
+            X = "÷"
+            text1 = String(num2)
+        }
+        return
     }
     func randomCalc() {
         num1 = Int.random(in: 1...20)
         num2 = Int.random(in: 1...20)
+    }
+    func clear() {
+        X = ""
+        text1 = ""
     }
 }
 
