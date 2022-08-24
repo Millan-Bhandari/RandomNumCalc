@@ -10,12 +10,15 @@ import SwiftUI
 struct ContentView: View {
     @State private var num1 = 0
     @State private var num2 = 0
+    @State private var div1 = 0.0
+    @State private var div2 = 0.0
     @State private var finalCalc = 0
     @State private var text = 0
     @State private var text1 = ""
     @State private var X = ""
     @State var buttonTapped = 0
     @State var selection = ""
+    @State private var divAnswer = 0
     var body: some View {
         VStack {
             Text("Number Flash Cards")
@@ -34,9 +37,8 @@ struct ContentView: View {
                 reset()
             })
             .pickerStyle(.wheel)
-            Spacer()
-            Text( "\(text)" + " \(X)" + " \(text1)").cornerRadius(10)
-                .frame(width: 120, height: 120, alignment: .center)
+            Text( "\(text)" + " \(X)" + " \(text1)")
+                .frame(width: 120, height: 300, alignment: .center)
                 .onTapGesture {
                     if selection == "Multiply" {
                         text = num1 * num2
@@ -51,11 +53,14 @@ struct ContentView: View {
                         clear()
                     }
                     if selection == "Division" {
+                        divAnswer = num1 / num2
                         text = num1 / num2
                         clear()
                     }
                 }
-                .background(.green)
+                .background(.gray)
+                .font(.title)
+                .cornerRadius(10)
             Button("New") {
                 randomCalc()
                 reset()
@@ -107,8 +112,8 @@ struct ContentView: View {
             }
         }
         if selection == "Division" {
-            num1 = Int.random(in: 1...20)
-            num2 = Int.random(in: 1...20)
+            num1 = Int.random(in: 1...50)
+            num2 = Int.random(in: 1...50)
             if num1 < num2 {
                 randomCalc()
             }
