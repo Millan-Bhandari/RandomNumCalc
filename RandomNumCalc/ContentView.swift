@@ -18,7 +18,9 @@ struct ContentView: View {
     @State private var X = ""
     @State var buttonTapped = 0
     @State var selection = ""
-    @State private var divAnswer = 0
+    @State private var divAnswer = 0.0
+    @State var answerDiv = 0.0
+    @State var answerDiv1 = 0.0
     var body: some View {
         VStack {
             Text("Number Flash Cards")
@@ -53,7 +55,7 @@ struct ContentView: View {
                         clear()
                     }
                     if selection == "Division" {
-                        divAnswer = num1 / num2
+                        divAnswer = Double(num1 / num2)
                         text = num1 / num2
                         clear()
                     }
@@ -114,6 +116,14 @@ struct ContentView: View {
         if selection == "Division" {
             num1 = Int.random(in: 1...50)
             num2 = Int.random(in: 1...50)
+            div1 = Double(num1)
+            div2 = Double(num2)
+            answerDiv = Double(num1 / num2)
+            answerDiv1 = div1 / div2
+            
+            if answerDiv != answerDiv1 {
+                randomCalc()
+            }
             if num1 < num2 {
                 randomCalc()
             }
