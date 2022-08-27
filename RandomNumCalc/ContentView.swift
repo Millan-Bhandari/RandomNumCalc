@@ -29,6 +29,7 @@ struct ContentView: View {
                 .fontWeight(.bold)
             Text("Tap the numbers to see answer")
                 .font(.footnote)
+                .fontWeight(.bold)
             Picker("Function", selection: $selection) {
                 Text("Multiply").tag("Multiply")
                 Text("Addition").tag("Addition")
