@@ -76,6 +76,7 @@ struct ContentView: View {
             .buttonStyle(RoundedRectangleButtonStyle())
             Spacer()
                 .onAppear {
+                    selection = "Multiply"
                     randomCalc()
                     reset()
                 }
