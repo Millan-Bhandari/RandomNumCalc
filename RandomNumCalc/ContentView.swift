@@ -21,6 +21,7 @@ struct ContentView: View {
     @State private var divAnswer = 0.0
     @State var answerDiv = 0.0
     @State var answerDiv1 = 0.0
+    @State var questionsAnswered = 0
     var body: some View {
         VStack {
             Text("Number Flash Cards")
@@ -38,7 +39,7 @@ struct ContentView: View {
                 randomCalc()
                 reset()
             })
-            .pickerStyle(.wheel)
+            .pickerStyle(.segmented)
             Text( "\(text)" + " \(X)" + " \(text1)")
                 .frame(width: 120, height: 300, alignment: .center)
                 .onTapGesture {
@@ -63,15 +64,21 @@ struct ContentView: View {
                 .background(.gray)
                 .font(.title)
                 .cornerRadius(10)
+                .padding()
             Button("New") {
                 randomCalc()
                 reset()
+                if selection != "" {
+                questionsAnswered += 1
+                }
             }
+            .buttonStyle(RoundedRectangleButtonStyle())
             Spacer()
                 .onAppear {
                     randomCalc()
                     reset()
                 }
+            Text("Questions Answered: \(questionsAnswered)")
         }
     }
     func reset() {
@@ -139,4 +146,19 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+
+struct RoundedRectangleButtonStyle: ButtonStyle {
+  func makeBody(configuration: Configuration) -> some View {
+    HStack {
+      Spacer()
+      configuration.label.foregroundColor(.black)
+      Spacer()
+    }
+    .padding()
+    .frame(width: 100, height: 50, alignment: .center
+    )
+    .background(Color.blue.cornerRadius(8))
+    .scaleEffect(configuration.isPressed ? 0.95 : 1)
+  }
 }
